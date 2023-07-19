@@ -6,6 +6,8 @@ TagManager:
   tags:
   - toplace
   - tile
+  - first_dot
+  - last_dot
   layers:
   - Default
   - TransparentFX
