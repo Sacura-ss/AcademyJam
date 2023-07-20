@@ -8,6 +8,10 @@ TagManager:
   - tile
   - first_dot
   - last_dot
+  - red
+  - green
+  - dot
+  - energy
   layers:
   - Default
   - TransparentFX

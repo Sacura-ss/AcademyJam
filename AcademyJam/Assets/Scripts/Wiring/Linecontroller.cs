@@ -18,10 +18,15 @@ public class Linecontroller : MonoBehaviour
     private float dist = 0f;
     private float Alldist = 0f;
     private Vector2 lastWorldPoint;
+    private Vector2 firstPoint;
+    public string color;
+    private bool energyPointearned = false;
+    private string StartPlata;
     // Start is called before the first frame update
     void Awake()
     {
         lr = GetComponent<LineRenderer>();
+        PointsEarned = NumberOfPoints;
     }
     private void makeline(Transform finalPoint)
     {
@@ -47,6 +52,21 @@ public class Linecontroller : MonoBehaviour
             lr.SetPosition(i, points[i].position);
         }
     }
+    void DisplayInfo(float dist, int pointsEarned)
+    {
+        distText.text = Alldist.ToString("F2");
+        pointsText.text = PointsEarned.ToString();
+    }
+    void ClearBoard()
+    {
+        points.Clear();
+        Alldist = 0f;
+        PointsEarned = NumberOfPoints;
+        first_pointed = false;
+        energyPointearned = false;
+        DisplayInfo(Alldist, PointsEarned);
+        SetupLine();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -56,62 +76,56 @@ public class Linecontroller : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
             if (hit.collider != null)
             {
-                if (hit.collider.gameObject.CompareTag("first_dot") && first_pointed == false)
+                if (hit.collider.gameObject.CompareTag(color) && first_pointed == false)
                 {
                     first_pointed = true;
-                    
                     lastWorldPoint = worldPoint;
-                    distText.text = Alldist.ToString("F2") + PointsEarned;
+                    firstPoint = worldPoint;
                     makeline(hit.collider.transform);
-                    pointsText.text = PointsEarned + " Pieces used";
+                    StartPlata = hit.collider.gameObject.transform.parent.name;
                 }
-                else if (first_pointed == true)
+                else if (first_pointed == true && (hit.collider.gameObject.CompareTag("dot") || hit.collider.gameObject.CompareTag("energy")))
                 {
+                    Debug.Log(hit.collider.gameObject.CompareTag("energy"));
+                    if (hit.collider.gameObject.CompareTag("energy"))
+                    {
+                        energyPointearned = true;
+                        Debug.Log("Hellooooooooo");
+                    }
                     if (points.Contains(hit.collider.transform))
                     {
-                        Debug.Log("Already Was");
-                        points.Clear();
-                        first_pointed = false;
-                        Debug.Log("Again");
-                        Alldist = 0f;
-                        PointsEarned = 0;
-                        distText.text = Alldist.ToString("F2") + PointsEarned;
-                        pointsText.text = PointsEarned + " Pieces Used";
-                        SetupLine();
+                        ClearBoard();
                         return;
-
                     }
-                     makeline(hit.collider.transform);
-                     PointsEarned++;
-                     dist  = (worldPoint - lastWorldPoint).magnitude;
+                    Debug.Log("Hello");
+                    makeline(hit.collider.transform);
+                    PointsEarned--;
+                    dist  = (worldPoint - lastWorldPoint).magnitude;
                     lastWorldPoint = worldPoint;
-                    Alldist+=dist;
-                    distText.text = Alldist.ToString("F2") + PointsEarned;
-                    pointsText.text = PointsEarned + " Pieces Used";
+                    Alldist += dist;
+                    DisplayInfo(Alldist, PointsEarned);
                 }
-                if (hit.collider.gameObject.CompareTag("last_dot") && first_pointed == true)
+                
+                if (hit.collider.gameObject.CompareTag(color) && first_pointed == true && worldPoint != firstPoint)
                 {
-                    if (PointsEarned == NumberOfPoints - 1)
+                    PointsEarned--;
+                    if (PointsEarned == 0 && energyPointearned && StartPlata != hit.collider.gameObject.transform.parent.name)
                     {
+                        makeline(hit.collider.transform);
                         dist  = (worldPoint - lastWorldPoint).magnitude;
                         Alldist += dist;
                         lastWorldPoint = worldPoint;
-                        distText.text = Alldist.ToString("F2");
-                        winText.text = "WIN!";
+                        DisplayInfo(dist, PointsEarned);
+                        Destroy(this);
                         Debug.Log("WIN!!");
                     }
                     else
-                    {
-                        points.Clear();
-                        Alldist = 0f;
-                        distText.text = Alldist.ToString("F2");
-                        first_pointed = false;
-                        PointsEarned = 0;
-                        Debug.Log("Again");
+                        ClearBoard();
+                }
 
-                        pointsText.text = PointsEarned + "Pieces Used";
-                        SetupLine();
-                    }
+                if (!hit.collider.gameObject.CompareTag(color) && !hit.collider.gameObject.CompareTag("dot") && !hit.collider.gameObject.CompareTag("energy"))
+                {
+                    ClearBoard();
                 }
 
                 
