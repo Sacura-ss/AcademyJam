@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace DragAndDropSystem
 {
@@ -14,7 +15,7 @@ namespace DragAndDropSystem
             if (eventData.pointerDrag != null)
             {
                 eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition =
-                    this.GetComponent<RectTransform>().anchoredPosition;
+                    GetComponent<RectTransform>().anchoredPosition;
             }
         }
 
@@ -24,6 +25,7 @@ namespace DragAndDropSystem
             {
                 IsEmpty = false;
                 _droppedGameObject = other.gameObject;
+                Fade(0.2f);
             }
         }
 
@@ -35,7 +37,16 @@ namespace DragAndDropSystem
                 {
                     IsEmpty = true;
                     _droppedGameObject = null;
+                    Fade(1.0f);
                 }
+            }
+        }
+
+        private void Fade(float alpha)
+        {
+            if (TryGetComponent(out CanvasGroup canvasGroup))
+            {
+                canvasGroup.alpha = alpha;
             }
         }
     }
