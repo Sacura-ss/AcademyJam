@@ -20,10 +20,13 @@ public class Linecontroller : MonoBehaviour
     private Vector2 lastWorldPoint;
     private Vector2 firstPoint;
     public string color;
+    private bool energyPointearned = false;
+    private string StartPlata;
     // Start is called before the first frame update
     void Awake()
     {
         lr = GetComponent<LineRenderer>();
+        PointsEarned = NumberOfPoints;
     }
     private void makeline(Transform finalPoint)
     {
@@ -52,14 +55,15 @@ public class Linecontroller : MonoBehaviour
     void DisplayInfo(float dist, int pointsEarned)
     {
         distText.text = Alldist.ToString("F2");
-        pointsText.text = PointsEarned + " Pieces used";
+        pointsText.text = PointsEarned.ToString();
     }
     void ClearBoard()
     {
         points.Clear();
         Alldist = 0f;
-        PointsEarned = 0;
+        PointsEarned = NumberOfPoints;
         first_pointed = false;
+        energyPointearned = false;
         DisplayInfo(Alldist, PointsEarned);
         SetupLine();
     }
@@ -78,25 +82,34 @@ public class Linecontroller : MonoBehaviour
                     lastWorldPoint = worldPoint;
                     firstPoint = worldPoint;
                     makeline(hit.collider.transform);
+                    StartPlata = hit.collider.gameObject.transform.parent.name;
                 }
-                else if (first_pointed == true && hit.collider.gameObject.CompareTag("dot"))
+                else if (first_pointed == true && (hit.collider.gameObject.CompareTag("dot") || hit.collider.gameObject.CompareTag("energy")))
                 {
+                    Debug.Log(hit.collider.gameObject.CompareTag("energy"));
+                    if (hit.collider.gameObject.CompareTag("energy"))
+                    {
+                        energyPointearned = true;
+                        Debug.Log("Hellooooooooo");
+                    }
                     if (points.Contains(hit.collider.transform))
                     {
                         ClearBoard();
                         return;
                     }
+                    Debug.Log("Hello");
                     makeline(hit.collider.transform);
-                    PointsEarned++;
+                    PointsEarned--;
                     dist  = (worldPoint - lastWorldPoint).magnitude;
                     lastWorldPoint = worldPoint;
                     Alldist += dist;
                     DisplayInfo(Alldist, PointsEarned);
                 }
+                
                 if (hit.collider.gameObject.CompareTag(color) && first_pointed == true && worldPoint != firstPoint)
                 {
-                    PointsEarned++;
-                    if (PointsEarned == NumberOfPoints - 1)
+                    PointsEarned--;
+                    if (PointsEarned == 0 && energyPointearned && StartPlata != hit.collider.gameObject.transform.parent.name)
                     {
                         makeline(hit.collider.transform);
                         dist  = (worldPoint - lastWorldPoint).magnitude;
@@ -109,7 +122,8 @@ public class Linecontroller : MonoBehaviour
                     else
                         ClearBoard();
                 }
-                if (!hit.collider.gameObject.CompareTag(color) && !hit.collider.gameObject.CompareTag("dot"))
+
+                if (!hit.collider.gameObject.CompareTag(color) && !hit.collider.gameObject.CompareTag("dot") && !hit.collider.gameObject.CompareTag("energy"))
                 {
                     ClearBoard();
                 }

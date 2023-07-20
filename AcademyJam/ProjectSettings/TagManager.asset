@@ -11,6 +11,7 @@ TagManager:
   - red
   - green
   - dot
+  - energy
   layers:
   - Default
   - TransparentFX
