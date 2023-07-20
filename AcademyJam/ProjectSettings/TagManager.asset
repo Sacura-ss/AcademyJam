@@ -8,6 +8,9 @@ TagManager:
   - tile
   - first_dot
   - last_dot
+  - red
+  - green
+  - dot
   layers:
   - Default
   - TransparentFX
