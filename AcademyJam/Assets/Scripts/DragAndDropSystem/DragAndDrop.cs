@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -31,7 +30,7 @@ namespace DragAndDropSystem
         public void OnEndDrag(PointerEventData eventData)
         {
             Debug.Log("end drag");
-           _canvasGroup.blocksRaycasts = true;
+            _canvasGroup.blocksRaycasts = true;
         }
 
         public void OnDrag(PointerEventData eventData)

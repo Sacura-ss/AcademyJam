@@ -1,19 +1,26 @@
 using System;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 
 namespace DragAndDropSystem
 {
-    public class DragAndDropUnit : MonoBehaviour
+    public class DragAndDropUnit : MonoBehaviour, IPointerDownHandler
     {
-        public bool IsDropped { set; get; } = false;
-
-        public int ID { private set; get;} 
+        public int ID { private set; get; }
 
         private void Awake()
         {
             ID = Random.Range(0, 1000);
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (transform.parent.TryGetComponent(out DragAndDropContainer dragAndDropContainer))
+            {
+                dragAndDropContainer.PivotTo(transform.position);
+            }
         }
     }
 }

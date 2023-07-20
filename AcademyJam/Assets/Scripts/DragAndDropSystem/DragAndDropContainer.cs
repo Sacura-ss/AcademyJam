@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace DragAndDropSystem
 {
@@ -18,8 +16,14 @@ namespace DragAndDropSystem
                     _units.Add(dragAndDropUnit);
                 }
             }
-            
         }
 
+        public void PivotTo(Vector3 position)
+        {
+            Vector3 offset = transform.position - position;
+            foreach (Transform child in transform)
+                child.transform.position += offset;
+            transform.position = position;
+        }
     }
 }
