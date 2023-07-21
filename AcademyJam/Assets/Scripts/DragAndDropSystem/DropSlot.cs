@@ -11,7 +11,7 @@ namespace DragAndDropSystem
 
         public void OnDrop(PointerEventData eventData)
         {
-            Debug.Log("get item");
+            //Debug.Log("drop item");
             if (eventData.pointerDrag != null)
             {
                 // eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition =
