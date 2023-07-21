@@ -14,8 +14,9 @@ namespace DragAndDropSystem
             Debug.Log("get item");
             if (eventData.pointerDrag != null)
             {
-                eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition =
-                    GetComponent<RectTransform>().anchoredPosition;
+                // eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition =
+                //     GetComponent<RectTransform>().anchoredPosition;
+                eventData.pointerDrag.transform.position = transform.position;
             }
         }
 

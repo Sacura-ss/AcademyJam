@@ -19,7 +19,7 @@ namespace DragAndDropSystem
         {
             if (transform.parent.TryGetComponent(out DragAndDropContainer dragAndDropContainer))
             {
-                dragAndDropContainer.PivotTo(transform.position);
+               dragAndDropContainer.PivotTo(transform.position);
             }
         }
     }
