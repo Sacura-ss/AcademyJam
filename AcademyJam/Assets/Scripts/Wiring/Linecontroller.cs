@@ -22,6 +22,7 @@ public class Linecontroller : MonoBehaviour
     public string color;
     private bool energyPointearned = false;
     private string StartPlata;
+    public float maxPieceLen;
     // Start is called before the first frame update
     void Awake()
     {
@@ -98,37 +99,45 @@ public class Linecontroller : MonoBehaviour
                         return;
                     }
                     Debug.Log("Hello");
-                    makeline(hit.collider.transform);
-                    PointsEarned--;
                     dist  = (worldPoint - lastWorldPoint).magnitude;
-                    lastWorldPoint = worldPoint;
-                    Alldist += dist;
-                    DisplayInfo(Alldist, PointsEarned);
+                    if (dist <= maxPieceLen)
+                    {
+                        makeline(hit.collider.transform);
+                        PointsEarned--;
+                        
+
+                        lastWorldPoint = worldPoint;
+                        Alldist += dist;
+                        DisplayInfo(Alldist, PointsEarned);
+                    }
+                    
                 }
-                
+
                 if (hit.collider.gameObject.CompareTag(color) && first_pointed == true && worldPoint != firstPoint)
                 {
-                    PointsEarned--;
-                    if (PointsEarned == 0 && energyPointearned && StartPlata != hit.collider.gameObject.transform.parent.name)
+                    if (PointsEarned == 1 && energyPointearned && StartPlata != hit.collider.gameObject.transform.parent.name)
                     {
                         makeline(hit.collider.transform);
                         dist  = (worldPoint - lastWorldPoint).magnitude;
-                        Alldist += dist;
-                        lastWorldPoint = worldPoint;
-                        DisplayInfo(dist, PointsEarned);
-                        Destroy(this);
-                        Debug.Log("WIN!!");
+                        if (dist <= maxPieceLen)
+                        {
+                            makeline(hit.collider.transform);
+                            PointsEarned--;
+                            lastWorldPoint = worldPoint;
+                            Alldist += dist;
+                            DisplayInfo(Alldist, PointsEarned);
+                            Debug.Log("WIN!!");
+                            Destroy(this);
+                        }
+                        
                     }
                     else
                         ClearBoard();
                 }
-
                 if (!hit.collider.gameObject.CompareTag(color) && !hit.collider.gameObject.CompareTag("dot") && !hit.collider.gameObject.CompareTag("energy"))
                 {
                     ClearBoard();
-                }
-
-                
+                } 
             }
         }
     }
