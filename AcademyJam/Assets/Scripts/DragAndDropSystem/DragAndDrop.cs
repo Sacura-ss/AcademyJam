@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -21,8 +20,6 @@ namespace DragAndDropSystem
         {
             //Debug.Log("begin drag");
             _canvasGroup.blocksRaycasts = false;
-
-            TrySetCanvasAsParent();
         }
 
         public void OnEndDrag(PointerEventData eventData)
@@ -34,24 +31,6 @@ namespace DragAndDropSystem
         public void OnDrag(PointerEventData eventData)
         {
             _rectTransform.anchoredPosition += eventData.delta / _canvas.scaleFactor;
-        }
-
-        private void TrySetCanvasAsParent()
-        {
-            if (transform.parent.TryGetComponent(out Canvas c))
-                return;
-
-            var canvas = GetComponentInParent<Canvas>();
-            if (canvas == null)
-                return;
-
-            SetAsParent(canvas.gameObject);
-        }
-
-        private void SetAsParent(GameObject newParent)
-        {
-            transform.SetParent(newParent.transform, true);
-            transform.SetAsLastSibling();
         }
     }
 }

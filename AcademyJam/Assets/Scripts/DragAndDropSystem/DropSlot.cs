@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -24,6 +25,8 @@ namespace DragAndDropSystem
         {
             if (_droppedGameObject == null)
             {
+                var dragUnit = other.GetComponent<DragAndDropUnit>();
+                if (dragUnit == null) return;
                 IsEmpty = false;
                 _droppedGameObject = other.gameObject;
                 Fade(0.2f);
@@ -34,12 +37,11 @@ namespace DragAndDropSystem
         {
             if (_droppedGameObject != null)
             {
-                if (other.GetComponent<DragAndDropUnit>().ID == _droppedGameObject.GetComponent<DragAndDropUnit>().ID)
-                {
-                    IsEmpty = true;
-                    _droppedGameObject = null;
-                    Fade(1.0f);
-                }
+                var dragUnit = other.GetComponent<DragAndDropUnit>();
+                if (dragUnit == null || dragUnit.ID != _droppedGameObject.GetComponent<DragAndDropUnit>().ID) return;
+                IsEmpty = true;
+                _droppedGameObject = null;
+                Fade(1.0f);
             }
         }
 
