@@ -1,33 +1,40 @@
+using System;
+using System.Collections.Generic;
 using DragAndDropSystem;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
-public class ScrollPanel : MonoBehaviour
+public class ScrollPanel : MonoBehaviour, IDropHandler
 {
     private const float SCALE_NUMBER = 2;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void OnDrop(PointerEventData eventData)
     {
-        if (other.TryGetComponent(out DragAndDropContainer t))
+        if (eventData.pointerDrag.TryGetComponent(out DragAndDropContainer t))
         {
             var layout = GetComponentInChildren<VerticalLayoutGroup>();
             if (layout != null)
             {
-                Service.SetNewParent(other.gameObject, layout.gameObject);
+                Service.SetNewParent(eventData.pointerDrag.gameObject, layout.gameObject);
             }
 
-            var localScale = other.transform.localScale;
-            other.transform.localScale = localScale / SCALE_NUMBER;
+            var localScale = eventData.pointerDrag.transform.localScale;
+            eventData.pointerDrag.transform.localScale = localScale / SCALE_NUMBER;
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.TryGetComponent(out DragAndDropContainer dragAndDropContainer))
+        if (other.GetComponentInParent<ScrollPanel>() != null)
         {
-            TrySetCanvasAsParent(other.transform);
-            var localScale = other.transform.localScale;
-            other.transform.localScale = localScale * SCALE_NUMBER;
+            if (other.TryGetComponent(out DragAndDropContainer dragAndDropContainer))
+            {
+                TrySetCanvasAsParent(other.transform);
+                var localScale = other.transform.localScale;
+                other.transform.localScale = localScale * SCALE_NUMBER;
+            }
         }
     }
 
