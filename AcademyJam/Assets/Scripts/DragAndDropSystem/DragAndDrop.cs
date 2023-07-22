@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace DragAndDropSystem
 {
-    public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+    public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
         private RectTransform _rectTransform;
         private Canvas _canvas;
@@ -16,20 +16,15 @@ namespace DragAndDropSystem
             _canvasGroup = GetComponent<CanvasGroup>();
         }
 
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            Debug.Log("down");
-        }
-
         public void OnBeginDrag(PointerEventData eventData)
         {
-            Debug.Log("begin drag");
+            //Debug.Log("begin drag");
             _canvasGroup.blocksRaycasts = false;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            Debug.Log("end drag");
+            //Debug.Log("end drag");
             _canvasGroup.blocksRaycasts = true;
         }
 

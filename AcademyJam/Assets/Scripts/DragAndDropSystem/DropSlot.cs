@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,13 +11,17 @@ namespace DragAndDropSystem
         private GameObject _droppedGameObject = null;
         public bool IsEmpty { set; get; } = true;
 
+        public event Action Dropped;
+
         public void OnDrop(PointerEventData eventData)
         {
-            Debug.Log("get item");
+            //Debug.Log("drop item");
             if (eventData.pointerDrag != null)
             {
-                eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition =
-                    GetComponent<RectTransform>().anchoredPosition;
+                // eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition =
+                //     GetComponent<RectTransform>().anchoredPosition;
+                eventData.pointerDrag.transform.position = transform.position;
+                Dropped?.Invoke();
             }
         }
 
@@ -23,6 +29,8 @@ namespace DragAndDropSystem
         {
             if (_droppedGameObject == null)
             {
+                var dragUnit = other.GetComponent<DragAndDropUnit>();
+                if (dragUnit == null) return;
                 IsEmpty = false;
                 _droppedGameObject = other.gameObject;
                 Fade(0.2f);
@@ -33,12 +41,11 @@ namespace DragAndDropSystem
         {
             if (_droppedGameObject != null)
             {
-                if (other.GetComponent<DragAndDropUnit>().ID == _droppedGameObject.GetComponent<DragAndDropUnit>().ID)
-                {
-                    IsEmpty = true;
-                    _droppedGameObject = null;
-                    Fade(1.0f);
-                }
+                var dragUnit = other.GetComponent<DragAndDropUnit>();
+                if (dragUnit == null || dragUnit.ID != _droppedGameObject.GetComponent<DragAndDropUnit>().ID) return;
+                IsEmpty = true;
+                _droppedGameObject = null;
+                Fade(1.0f);
             }
         }
 
