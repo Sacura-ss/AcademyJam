@@ -11,7 +11,6 @@ public class Linecontroller : MonoBehaviour
     public Vector3 lastPoints;
     private bool first_pointed = false;
     public int NumberOfPoints;
-    private int PointsEarned;
     public TMP_Text pointsText;
     public TMP_Text distText;
     public TMP_Text winText;
@@ -20,13 +19,14 @@ public class Linecontroller : MonoBehaviour
     private Vector2 lastWorldPoint;
     private Vector2 firstPoint;
     public string color;
-    private bool energyPointearned = false;
     private string StartPlata;
     public float maxPieceLen;
     private int piecesLeft;
     public GameObject EnergyPointController;
     public List<GameObject> EPoints = new List<GameObject>();
     public SpriteRenderer en;
+    static int AllEnergyPointsNum = 2;
+    public TMP_Text EnergyPTSText;
     // Start is called before the first frame update
     void Awake()
     {
@@ -58,7 +58,6 @@ public class Linecontroller : MonoBehaviour
         EPoints.Clear();
         Alldist = 0f;
         first_pointed = false;
-        energyPointearned = false;
         DisplayInfo(Alldist, piecesLeft);
         SetupLine();
     }
@@ -94,7 +93,6 @@ public class Linecontroller : MonoBehaviour
                         en = hit.collider.gameObject.GetComponent<SpriteRenderer>();
                         en.color = Color.red;
                         EPoints.Add(hit.collider.gameObject);
-                        energyPointearned = true;
                     }
                     if (points.Contains(hit.collider.transform.position))
                     {
@@ -102,32 +100,31 @@ public class Linecontroller : MonoBehaviour
                         return;
                     }
                     dist  = (worldPoint - lastWorldPoint).magnitude;
-                    if (dist <= maxPieceLen)
-                    {
-                        makeline(hit.collider.transform.position);
-                        lastWorldPoint = worldPoint;
-                        Alldist += dist;
-                        DisplayInfo(Alldist, piecesLeft);
-                    }
-                    
+                    Alldist += dist;
+                        if (Alldist > maxPieceLen)
+                            ClearBoard();
+                    makeline(hit.collider.transform.position);
+                    lastWorldPoint = worldPoint;
+                    DisplayInfo(Alldist, piecesLeft);
                 }
-
                 if (hit.collider.gameObject.CompareTag(color) && first_pointed == true && worldPoint != firstPoint)
                 {
-                    if (energyPointearned && StartPlata != hit.collider.gameObject.transform.parent.name)
+                    if (StartPlata != hit.collider.gameObject.transform.parent.name)
                     {
                         makeline(hit.collider.transform.position);
                         dist  = (worldPoint - lastWorldPoint).magnitude;
-                        if (dist <= maxPieceLen)
+                        lastWorldPoint = worldPoint;
+                        Alldist += dist;
+                        if (Alldist > maxPieceLen)
+                            ClearBoard();
+                        DisplayInfo(Alldist, piecesLeft);
+                        piecesLeft--;
+                        pointsText.text = piecesLeft.ToString();
+                        if (EnergyPTSText.text ==  AllEnergyPointsNum.ToString())
                         {
-                            makeline(hit.collider.transform.position);
-                            lastWorldPoint = worldPoint;
-                            Alldist += dist;
-                            DisplayInfo(Alldist, piecesLeft);
-                            piecesLeft--;
-                            pointsText.text = piecesLeft.ToString();
-                            Destroy(this);
+                            winText.text = "WIN!";
                         }
+                        Destroy(this);
                         
                     }
                     else
@@ -140,8 +137,6 @@ public class Linecontroller : MonoBehaviour
                         en = ep.GetComponent<SpriteRenderer>();
                         en.color = Color.yellow;
                     }
-                    
-                    energyPointearned = false;
                     ClearBoard();
                     
                 } 

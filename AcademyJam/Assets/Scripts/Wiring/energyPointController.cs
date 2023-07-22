@@ -28,6 +28,7 @@ public class energyPointController : MonoBehaviour
                 count += 1;
                 EnPointsLeft.text = count.ToString();
             }
+
         }
         EnPointsLeft.text = count.ToString();
         count = 0;

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4993560685188844432
+--- !u!1 &8685348338540112909
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 847641482733707671}
-  - component: {fileID: 7472447613290093142}
-  - component: {fileID: 2356762873487783057}
+  - component: {fileID: 1907961065368578036}
+  - component: {fileID: 8039870932032203109}
+  - component: {fileID: 5659976956812142907}
+  - component: {fileID: 9066162941687158186}
   m_Layer: 0
-  m_Name: LineControl green
+  m_Name: LineControl blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &847641482733707671
+--- !u!4 &1907961065368578036
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4993560685188844432}
+  m_GameObject: {fileID: 8685348338540112909}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.1750455, y: 1.0771458, z: -0.749092}
@@ -33,14 +34,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!120 &7472447613290093142
+--- !u!120 &8039870932032203109
 LineRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4993560685188844432}
+  m_GameObject: {fileID: 8685348338540112909}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -80,7 +81,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 0.15
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -98,8 +99,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.29162621, g: 1, b: 0, a: 1}
-      key1: {r: 0.2875129, g: 1, b: 0, a: 1}
+      key0: {r: 0, g: 0.036848783, b: 1, a: 1}
+      key1: {r: 0, g: 0.036848783, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -137,13 +138,13 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &2356762873487783057
+--- !u!114 &5659976956812142907
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4993560685188844432}
+  m_GameObject: {fileID: 8685348338540112909}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e79067ec62af5e499330f9888b7596a, type: 3}
@@ -151,13 +152,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points: []
   lastPoints: {x: 0, y: 0, z: 0}
-  NumberOfPoints: 4
+  NumberOfPoints: 5
   pointsText: {fileID: 0}
   distText: {fileID: 0}
   winText: {fileID: 0}
-  color: green
+  color: blue
   maxPieceLen: 15
   EnergyPointController: {fileID: 0}
   EPoints: []
   en: {fileID: 0}
   EnergyPTSText: {fileID: 0}
+--- !u!50 &9066162941687158186
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8685348338540112909}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

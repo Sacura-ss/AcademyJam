@@ -157,7 +157,11 @@ MonoBehaviour:
   distText: {fileID: 0}
   winText: {fileID: 0}
   color: red
-  maxPieceLen: 10
+  maxPieceLen: 15
+  EnergyPointController: {fileID: 0}
+  EPoints: []
+  en: {fileID: 0}
+  EnergyPTSText: {fileID: 0}
 --- !u!50 &5818187695268174934
 Rigidbody2D:
   serializedVersion: 4
