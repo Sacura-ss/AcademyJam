@@ -5,7 +5,7 @@ namespace DragAndDropSystem
     public class WinCondition : MonoBehaviour
     {
         [SerializeField] private WinPanel _winPanel;
-        //[SerializeField] private GameObject _vfxEffect;
+        [SerializeField] private GameObject _vfxEffect;
         
         private DropSlotContainer _dropSlotContainer;
 
@@ -37,7 +37,7 @@ namespace DragAndDropSystem
         private void WinProcess()
         {
             Debug.Log("WINNER");
-            //_vfxEffect.SetActive(true);
+            _vfxEffect.SetActive(true);
             _winPanel.gameObject.SetActive(true);
         }
     }
