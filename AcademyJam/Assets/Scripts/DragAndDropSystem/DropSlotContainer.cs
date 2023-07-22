@@ -15,33 +15,11 @@ namespace DragAndDropSystem
                 if (child.TryGetComponent(out DropSlot dropSlot))
                 {
                     _dropSlots.Add(dropSlot);
-                    dropSlot.Dropped += CheckForWin;
                 }
             }
         }
-
-        private void OnDisable()
-        {
-            foreach (var slot in _dropSlots)
-            {
-                slot.Dropped -= CheckForWin;
-            }
-        }
-
-        private void CheckForWin()
-        {
-            if (IsAllSlotsFilled())
-            {
-                WinProcess();
-            }
-        }
-
-        private void WinProcess()
-        {
-            Debug.Log("WINNER");
-        }
-
-        private bool IsAllSlotsFilled()
+        
+        public bool IsAllSlotsFilled()
         {
             foreach (var slots in _dropSlots)
             {
@@ -52,6 +30,11 @@ namespace DragAndDropSystem
             }
 
             return true;
+        }
+
+        public List<DropSlot> GetDropSlots()
+        {
+            return _dropSlots;
         }
     }
 }
