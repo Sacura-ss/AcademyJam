@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,6 +11,8 @@ namespace DragAndDropSystem
         private GameObject _droppedGameObject = null;
         public bool IsEmpty { set; get; } = true;
 
+        public event Action Dropped;
+
         public void OnDrop(PointerEventData eventData)
         {
             //Debug.Log("drop item");
@@ -18,6 +21,7 @@ namespace DragAndDropSystem
                 // eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition =
                 //     GetComponent<RectTransform>().anchoredPosition;
                 eventData.pointerDrag.transform.position = transform.position;
+                Dropped?.Invoke();
             }
         }
 
