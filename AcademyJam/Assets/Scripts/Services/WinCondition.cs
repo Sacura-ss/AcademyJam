@@ -1,3 +1,4 @@
+using Audio;
 using DragAndDropSystem;
 using UI;
 using UnityEngine;
@@ -41,6 +42,9 @@ namespace Services
             Debug.Log("WINNER");
             _vfxEffect.SetActive(true);
             _winPanel.gameObject.SetActive(true);
+            
+            var audioManager = FindObjectOfType<AudioManager>();
+            if (audioManager != null) audioManager.PlayWinSfx();
         }
     }
 }

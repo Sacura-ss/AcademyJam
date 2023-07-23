@@ -1,4 +1,5 @@
 using System;
+using Audio;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -20,6 +21,9 @@ namespace DragAndDropSystem
                 //     GetComponent<RectTransform>().anchoredPosition;
                 eventData.pointerDrag.transform.position = transform.position;
                 Dropped?.Invoke();
+                
+                var audioManager = FindObjectOfType<AudioManager>();
+                if (audioManager != null) audioManager.PlayDropSfx();
             }
         }
 

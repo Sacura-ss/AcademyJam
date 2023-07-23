@@ -9,6 +9,8 @@ namespace Audio
 
         [SerializeField] private AudioSource _music;
         [SerializeField] private AudioSource _buttonSFX;
+        [SerializeField] private AudioSource _dropSFX;
+        [SerializeField] private AudioSource _winSFX;
     
 
         private const string MIXER_MUSIC = "MusicVolume";
@@ -39,6 +41,16 @@ namespace Audio
         public void PlayButtonSfx()
         {
             _buttonSFX.Play();
+        }
+
+        public void PlayDropSfx()
+        {
+            _dropSFX.Play();
+        }
+
+        public void PlayWinSfx()
+        {
+            _winSFX.Play();
         }
 
         public void StopMusic()
