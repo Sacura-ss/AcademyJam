@@ -156,7 +156,7 @@ MonoBehaviour:
   distText: {fileID: 0}
   winText: {fileID: 0}
   color: green
-  maxPieceLen: 15
+  maxPieceLen: 12
   EnergyPointController: {fileID: 0}
   EPoints: []
   en: {fileID: 0}

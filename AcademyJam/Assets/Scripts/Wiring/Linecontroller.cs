@@ -25,7 +25,7 @@ public class Linecontroller : MonoBehaviour
     public GameObject EnergyPointController;
     public List<GameObject> EPoints = new List<GameObject>();
     public SpriteRenderer en;
-    static int AllEnergyPointsNum = 2;
+    static int AllEnergyPointsNum = 4;
     public TMP_Text EnergyPTSText;
     // Start is called before the first frame update
     void Awake()
