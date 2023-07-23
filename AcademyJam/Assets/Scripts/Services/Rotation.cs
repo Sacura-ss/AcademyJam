@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace DragAndDropSystem
+namespace Services
 {
     public class Rotation : MonoBehaviour, IPointerClickHandler
     {

@@ -1,6 +1,8 @@
+using DragAndDropSystem;
+using UI;
 using UnityEngine;
 
-namespace DragAndDropSystem
+namespace Services
 {
     public class WinCondition : MonoBehaviour
     {

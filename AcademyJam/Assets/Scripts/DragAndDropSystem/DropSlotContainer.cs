@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +17,7 @@ namespace DragAndDropSystem
                 }
             }
         }
-        
+
         public bool IsAllSlotsFilled()
         {
             foreach (var slots in _dropSlots)

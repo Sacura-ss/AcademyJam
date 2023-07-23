@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace DragAndDropSystem
 {
@@ -33,7 +31,7 @@ namespace DragAndDropSystem
         private void SaveImagePosition(Vector3 offset)
         {
             RawImage rawImage = GetComponent<RawImage>();
-            if(rawImage != null)
+            if (rawImage != null)
             {
                 Debug.Log("hhh " + offset);
                 var rawImageUVRect = rawImage.uvRect;
