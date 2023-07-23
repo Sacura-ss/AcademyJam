@@ -31,7 +31,7 @@ namespace DragAndDropSystem
                 if (dragUnit == null) return;
                 IsEmpty = false;
                 _droppedGameObject = other.gameObject;
-                Fade(0.2f);
+                Fade(0.5f);
             }
         }
 
