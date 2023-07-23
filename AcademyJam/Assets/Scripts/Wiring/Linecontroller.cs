@@ -54,6 +54,11 @@ public class Linecontroller : MonoBehaviour
     }
     void ClearBoard()
     {
+        foreach (GameObject ep in EPoints)
+        {
+            en = ep.GetComponent<SpriteRenderer>();
+            en.color = Color.yellow;
+        }
         points.Clear();
         EPoints.Clear();
         Alldist = 0f;
@@ -132,11 +137,6 @@ public class Linecontroller : MonoBehaviour
                 }
                 if (!hit.collider.gameObject.CompareTag(color) && !hit.collider.gameObject.CompareTag("dot") && !hit.collider.gameObject.CompareTag("energy"))
                 {
-                    foreach (GameObject ep in EPoints)
-                    {
-                        en = ep.GetComponent<SpriteRenderer>();
-                        en.color = Color.yellow;
-                    }
                     ClearBoard();
                     
                 } 
