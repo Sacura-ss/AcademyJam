@@ -53,6 +53,11 @@ namespace UI
             SceneLoader.Instance.LoadSceneByBuildIndex(_dataSaver.savedData.LevelPart);
         }
 
+        public void OpenURL()
+        {
+            Application.OpenURL("https://purrfect-vest-c38.notion.site/General-gamedesign-document-2c5eb68a8f9d40ecb0a75c0cfed02618?pvs=4");
+        }
+
         public void SelectLevel()
         {
             // write code here
