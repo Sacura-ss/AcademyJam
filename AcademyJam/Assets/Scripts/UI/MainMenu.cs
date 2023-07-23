@@ -10,6 +10,7 @@ namespace UI
     {
         [SerializeField] private AudioManager _audioManager;
         [SerializeField] private Button _resumeButton;
+        [SerializeField] private Button _levelButton;
         private DataSaver _dataSaver;
 
         private Color _resumeButtonColor;
@@ -18,6 +19,9 @@ namespace UI
             //_audioManager.PlayMusic();
             _dataSaver = FindObjectOfType<DataSaver>();
             _resumeButtonColor = _resumeButton.GetComponent<Image>().color;
+            
+            // TO DO: delete later
+            DisableButton(_levelButton);
         }
 
         private void Start()
@@ -47,6 +51,11 @@ namespace UI
         {
             _audioManager.PlayButtonSfx();
             SceneLoader.Instance.LoadSceneByBuildIndex(_dataSaver.savedData.LevelPart);
+        }
+
+        public void SelectLevel()
+        {
+            // write code here
         }
 
         public void SetMusicSlider(float volume)
