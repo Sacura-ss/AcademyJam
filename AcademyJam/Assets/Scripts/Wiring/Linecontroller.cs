@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Linecontroller : MonoBehaviour
 {
@@ -107,7 +108,10 @@ public class Linecontroller : MonoBehaviour
                     dist  = (worldPoint - lastWorldPoint).magnitude;
                     Alldist += dist;
                         if (Alldist > maxPieceLen)
+                        {
                             ClearBoard();
+                            return;
+                        }
                     makeline(hit.collider.transform.position);
                     lastWorldPoint = worldPoint;
                     DisplayInfo(Alldist, piecesLeft);
@@ -121,13 +125,16 @@ public class Linecontroller : MonoBehaviour
                         lastWorldPoint = worldPoint;
                         Alldist += dist;
                         if (Alldist > maxPieceLen)
+                        {
                             ClearBoard();
+                            return;
+                        }
                         DisplayInfo(Alldist, piecesLeft);
                         piecesLeft--;
                         pointsText.text = piecesLeft.ToString();
                         if (EnergyPTSText.text ==  AllEnergyPointsNum.ToString())
                         {
-                            winText.text = "WIN!";
+                            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1 );
                         }
                         Destroy(this);
                         
