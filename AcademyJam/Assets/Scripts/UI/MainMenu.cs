@@ -15,7 +15,7 @@ namespace UI
         private Color _resumeButtonColor;
         private void Awake()
         {
-            _audioManager.PlayMusic();
+            //_audioManager.PlayMusic();
             _dataSaver = FindObjectOfType<DataSaver>();
             _resumeButtonColor = _resumeButton.GetComponent<Image>().color;
         }
@@ -40,6 +40,7 @@ namespace UI
         {
             _audioManager.PlayButtonSfx();
             SceneLoader.Instance.LoadSceneByBuildIndex(1);
+            _dataSaver.ClearInfo();
         }
 
         public void ResumeGame()
@@ -62,14 +63,12 @@ namespace UI
         
         private void EnableButton(Button button)
         {
-            Debug.Log("en");
             button.GetComponent<Image>().color = _resumeButtonColor;
             button.enabled = true;
         }
 
         private void DisableButton(Button button)
         {
-            Debug.Log("dis");
             button.GetComponent<Image>().color = Color.gray;
             button.enabled = false;
         }

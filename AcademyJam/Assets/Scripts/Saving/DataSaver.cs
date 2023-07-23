@@ -9,6 +9,7 @@ namespace Saving
     public class DataSaver : MonoBehaviour
     {
         public SavedData savedData = new();
+        private const string FILE_NAME = "/Player.dat";
 
         private void OnEnable()
         {
@@ -23,9 +24,9 @@ namespace Saving
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (SceneManager.GetActiveScene().buildIndex > savedData.LevelPart)
+            if (scene.buildIndex > savedData.LevelPart)
             {
-                savedData.LevelPart = SceneManager.GetActiveScene().buildIndex;
+                savedData.LevelPart = scene.buildIndex;
                 Save();
             }
         }
@@ -38,7 +39,7 @@ namespace Saving
         private void Save()
         {
             FileStream file = new FileStream(Application.persistentDataPath
-                                             + "/Play.dat", FileMode.OpenOrCreate);
+                                             + FILE_NAME, FileMode.OpenOrCreate);
 
             BinaryFormatter binaryFormatter = new BinaryFormatter();
 
@@ -52,13 +53,30 @@ namespace Saving
             try
             {
                 FileStream file = new FileStream(Application.persistentDataPath
-                                                 + "/Play.dat", FileMode.Open);
+                                                 + FILE_NAME, FileMode.Open);
 
                 BinaryFormatter binaryFormatter = new BinaryFormatter();
 
                 savedData = (SavedData)binaryFormatter.Deserialize(file);
 
                 file.Close();
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
+        public void ClearInfo()
+        {
+            try
+            {
+                string path = Application.persistentDataPath + FILE_NAME;
+
+                using (FileStream fs = new FileStream(path, FileMode.Truncate))
+                {
+                }
+
+                savedData = new();
             }
             catch (Exception e)
             {
